@@ -19,8 +19,6 @@ const FormRegister = (props) => {
         if (validate()) {
             try {
                 const usuarios = await firestore().collection('users').doc(username).get();
-                console.log(usuarios.data())
-                console.log(password);
                 if (!usuarios.data()) {
                     addNewUser();
                 } else {

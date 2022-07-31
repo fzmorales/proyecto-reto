@@ -17,7 +17,6 @@ const FormLogin = () => {
             const usuarios = await firestore().collection('users').doc(username).get();
             if (usuarios.data()) {
                 if(password === usuarios.data().password){
-                    console.log('Inicio Sesión');
                     setIsLoggedIn(true);
                 } else {
                     setErrorMsg('Contraseña incorrecta');
