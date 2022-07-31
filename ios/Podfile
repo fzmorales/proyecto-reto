@@ -9,6 +9,8 @@ production = ENV["PRODUCTION"] == "1"
 target 'ProyectoReto' do
   config = use_native_modules!
 
+  pod ‘FirebaseCoreInternal’,‘9.3.0’, :modular_headers => true
+  pod ‘GoogleUtilities’,‘7.7.0’, :modular_headers => true
   # Flags change depending on the env values.
   flags = get_default_flags()
 

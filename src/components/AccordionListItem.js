@@ -6,11 +6,10 @@ import {
     StyleSheet,
     Animated,
     Easing,
-  } from 'react-native';
-
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const AccordionListItem = ({ title, children }) => {
+const AccordionListItem = ({ title, bgColor, children }) => {
     const [open, setOpen] = useState(false);
     const animatedController = useRef(new Animated.Value(0)).current;
     const [bodySectionHeight, setBodySectionHeight] = useState(0);
@@ -47,16 +46,16 @@ const AccordionListItem = ({ title, children }) => {
     return (
       <>
         <TouchableWithoutFeedback onPress={() => toggleListItem()}>
-          <View style={styles.titleContainer}>
-            <Text>{title}</Text>
+          <View style={[styles.titleContainer, { backgroundColor: bgColor ? bgColor : '#FAFAFA'}]}>
+            <Text style={styles.titleText}>{title}</Text>
             <Animated.View style={{ transform: [{ rotateZ: arrowAngle }] }}>
-              <Icon name="keyboard-arrow-down" size={25} color="#6F6F6F"/>
+              <Icon name="keyboard-arrow-down" size={32} color="#000"/>
             </Animated.View>
           </View>
         </TouchableWithoutFeedback>
         <Animated.View style={[styles.bodyBackground, { height: bodyHeight }]}>
           <View
-            style={styles.bodyContainer}
+            style={[styles.bodyContainer, { backgroundColor: bgColor ? bgColor : '#FAFAFA'}]}
             onLayout={event =>
               setBodySectionHeight(event.nativeEvent.layout.height)
             }>
@@ -80,13 +79,16 @@ const AccordionListItem = ({ title, children }) => {
       alignItems: 'center',
       padding: 10,
       paddingLeft: 15,
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      borderColor: '#EFEFEF',
+      paddingTop: 49,
+      paddingBottom: 22,
+    },
+    titleText:{
+      fontSize: 18,
+      fontWeight: '700'
     },
     bodyContainer: {
-      padding: 10,
-      paddingLeft: 15,
+      paddingBottom: 20,
+      paddingHorizontal: 19,
       position: 'absolute',
       bottom: 0,
     },

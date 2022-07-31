@@ -1,15 +1,29 @@
-import { View, Text, SafeAreaView, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React from 'react';
+import {
+    View,
+    Text,
+    SafeAreaView,
+    Image,
+    StyleSheet,
+    TouchableOpacity
+} from 'react-native';
+import { useLogin } from '../context/LoginProvider';
 import AccordionListItem from '../components/AccordionListItem';
-//import firestore from '@react-native-firebase/firestore';
 
 const HomeScreen = () => {
-    //const userDocument = firestore().collection('users').doc('fmorales');
-    //console.log(userDocument);
+    const { setIsLoggedIn } = useLogin();
+    const logout = () => {
+        setIsLoggedIn(false);
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ padding: 10 }}>
-                <Text style={styles.optionTitle}>Opciones</Text>
+                <View style={styles.header}>
+                    <Text style={styles.optionTitle}>Opciones</Text>
+                    <TouchableOpacity onPress={() => logout()}>
+                        <Text>Cerrar sesión</Text>
+                    </TouchableOpacity>
+                </View>
                 <View style={styles.optionsRow}>
                     <TouchableOpacity style={styles.optionItem}>
                         <Image source={require('../assets/carrito.png')}></Image>
@@ -40,8 +54,8 @@ const HomeScreen = () => {
                 </View>
             </View>
             <View style={{ marginTop: 20 }}>
-                <AccordionListItem title={'Descubre'}>
-                    <Text>
+                <AccordionListItem title={'Descubre'} bgColor={'#9FCBF7'}>
+                    <Text style={styles.accordionText}>
                         Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
                         Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500,
                         cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
@@ -53,7 +67,7 @@ const HomeScreen = () => {
                     </Text>
                 </AccordionListItem>
                 <AccordionListItem title={'Descubre'}>
-                    <Text>
+                    <Text style={styles.accordionText}>
                         Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
                         Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500,
                         cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó
@@ -73,7 +87,11 @@ export default HomeScreen
 
 styles = StyleSheet.create({
     container: {
-        flex:1
+        flex: 1
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     optionText: {
         fontWeight: '100',
@@ -83,14 +101,20 @@ styles = StyleSheet.create({
     optionTitle: {
         color: '#4F4F4F'
     },
-    optionsRow: { 
-        flexDirection: 'row', 
-        justifyContent: 'space-between', 
-        paddingHorizontal: 20, 
-        marginTop: 20 
+    optionsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
+        marginTop: 20
     },
-    optionItem: { 
-        alignItems: 'center', 
-        justifyContent: 'center' 
+    optionItem: {
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    accordionText: {
+        fontWeight: '700',
+        fontSize: 13,
+        lineHeight: 15,
+        textAlign: 'justify'
     }
 })
